@@ -1,0 +1,84 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "SalesForce Flow",
+        "description": "",
+        "version": "v1"
+    },
+    "servers": [{
+        "url": "https://bcito-ae-gsds-apim-shared-nonprod.azure-api.net/salesforce-flow/v1"
+    }],
+    "paths": {
+        "/publish": {
+            "post": {
+                "summary": "publish",
+                "description": "publish",
+                "operationId": "publish",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/salesforce-flow-request"
+                            },
+                            "example": {
+                                "recordType": "SyncCustomer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json-patch+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/salesforce-flow-response"
+                                },
+                                "example": {
+                                    "Ack": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "salesforce-flow-request": {
+                "type": "object",
+                "properties": {
+                    "recordType": {
+                        "type": "string"
+                    }
+                }
+            },
+            "salesforce-flow-response": {
+                "type": "object",
+                "properties": {
+                    "Ack": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "api-key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "api-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [{
+        "apiKeyHeader": []
+    }, {
+        "apiKeyQuery": []
+    }]
+}
